@@ -3,6 +3,7 @@
 use Botble\Theme\Facades\Theme;
 use Illuminate\Support\Facades\Route;
 use Theme\Martfury\Http\Controllers\MartfuryController;
+use Theme\Martfury\Http\Controllers\CarSearchController;
 
 Theme::registerRoutes(function (): void {
     Route::group(['controller' => MartfuryController::class], function (): void {
@@ -26,6 +27,19 @@ Theme::registerRoutes(function (): void {
             Route::get('products-by-category/{id}', 'ajaxGetProductsByCategory')
                 ->name('products-by-category')
                 ->wherePrimaryKey();
+        });
+    });
+
+    Route::group(['controller' => CarSearchController::class], function (): void {
+        Route::group(['prefix' => 'ajax/car-search', 'as' => 'public.ajax.car-search.'], function (): void {
+            Route::get('models', 'getModels')
+                ->name('models');
+
+            Route::get('years', 'getYears')
+                ->name('years');
+
+            Route::get('variants', 'getVariants')
+                ->name('variants');
         });
     });
 });
