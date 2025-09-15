@@ -209,9 +209,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 'Accept': 'application/json'
             }
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             hideLoading(modelSelect, originalHTML);
+            
+            if (data.error) {
+                console.error('Server error:', data.message);
+                return;
+            }
             
             if (data.data && data.data.length > 0) {
                 modelSelect.innerHTML = '<option value="">{{ __("Select Model") }}</option>';
@@ -248,9 +258,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 'Accept': 'application/json'
             }
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             hideLoading(yearSelect, originalHTML);
+            
+            if (data.error) {
+                console.error('Server error:', data.message);
+                return;
+            }
             
             if (data.data && data.data.length > 0) {
                 yearSelect.innerHTML = '<option value="">{{ __("Select Year") }}</option>';
@@ -286,9 +306,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 'Accept': 'application/json'
             }
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             hideLoading(variantSelect, originalHTML);
+            
+            if (data.error) {
+                console.error('Server error:', data.message);
+                return;
+            }
             
             if (data.data && data.data.length > 0) {
                 variantSelect.innerHTML = '<option value="">{{ __("Select Modification") }}</option>';

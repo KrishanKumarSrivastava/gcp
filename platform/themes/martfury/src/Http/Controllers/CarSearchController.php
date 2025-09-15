@@ -31,11 +31,15 @@ class CarSearchController extends PublicController
             return $this->httpResponse->setData([]);
         }
 
-        $models = CarModel::where('make_id', $makeId)
-            ->orderBy('name')
-            ->get(['id', 'name']);
+        try {
+            $models = CarModel::where('make_id', $makeId)
+                ->orderBy('name')
+                ->get(['id', 'name']);
 
-        return $this->httpResponse->setData($models);
+            return $this->httpResponse->setData($models);
+        } catch (\Exception $e) {
+            return $this->httpResponse->setError()->setMessage('Failed to load models');
+        }
     }
 
     public function getYears(Request $request)
@@ -46,11 +50,15 @@ class CarSearchController extends PublicController
             return $this->httpResponse->setData([]);
         }
 
-        $years = CarYear::where('model_id', $modelId)
-            ->orderBy('year', 'desc')
-            ->get(['id', 'year']);
+        try {
+            $years = CarYear::where('model_id', $modelId)
+                ->orderBy('year', 'desc')
+                ->get(['id', 'year']);
 
-        return $this->httpResponse->setData($years);
+            return $this->httpResponse->setData($years);
+        } catch (\Exception $e) {
+            return $this->httpResponse->setError()->setMessage('Failed to load years');
+        }
     }
 
     public function getVariants(Request $request)
@@ -61,10 +69,14 @@ class CarSearchController extends PublicController
             return $this->httpResponse->setData([]);
         }
 
-        $variants = CarVariant::where('year_id', $yearId)
-            ->orderBy('name')
-            ->get(['id', 'name']);
+        try {
+            $variants = CarVariant::where('year_id', $yearId)
+                ->orderBy('name')
+                ->get(['id', 'name']);
 
-        return $this->httpResponse->setData($variants);
+            return $this->httpResponse->setData($variants);
+        } catch (\Exception $e) {
+            return $this->httpResponse->setError()->setMessage('Failed to load modifications');
+        }
     }
 }
