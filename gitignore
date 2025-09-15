@@ -1,0 +1,39 @@
+# Laravel core
+/vendor
+/node_modules
+
+# Environment files
+.env
+.env.*.backup
+.env.local
+.env.production
+.env.staging
+
+# Cache & logs
+/storage/*.key
+/storage/framework/*
+/storage/logs/*
+/bootstrap/cache/*
+
+# IDE / Editor
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Composer & npm debug
+composer.lock
+npm-debug.log
+yarn-error.log
+
+# Database dumps (ignore all except our backup folder)
+*.sql
+*.sqlite
+!database/backup/*.sql
+
+# Public uploads (optional – keep only if you don’t want to track user uploads)
+/public/storage
