@@ -395,6 +395,7 @@ class EcommerceServiceProvider extends ServiceProvider
                 'invoice',
                 'setting',
                 'product-specification',
+                'vehicle',
                 'api',
                 'ajax',
             ])
