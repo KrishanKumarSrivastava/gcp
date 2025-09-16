@@ -991,7 +991,6 @@ class EcommerceServiceProvider extends ServiceProvider
                     'url' => fn () => route('vehicle.variants.index'),
                     'permissions' => ['vehicle.variants.index'],
                 ]);
-                });
         });
 
         DashboardMenu::for('customer')->beforeRetrieving(function (): void {
