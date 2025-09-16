@@ -79,4 +79,64 @@ class CarSearchController extends PublicController
             return $this->httpResponse->setError()->setMessage('Failed to load modifications');
         }
     }
+
+    public function searchProducts(Request $request)
+    {
+        $makeId = $request->input('make_id');
+        $modelId = $request->input('model_id');
+        $yearId = $request->input('year_id');
+        $variantId = $request->input('variant_id');
+
+        if (!$makeId) {
+            return $this->httpResponse->setError()->setMessage('Make is required');
+        }
+
+        try {
+            $query = \Botble\Ecommerce\Models\Product::query()
+                ->join('product_vehicle_fitments', 'ec_products.id', '=', 'product_vehicle_fitments.product_id')
+                ->where('product_vehicle_fitments.make_id', $makeId);
+
+            if ($modelId) {
+                $query->where(function($q) use ($modelId) {
+                    $q->where('product_vehicle_fitments.model_id', $modelId)
+                      ->orWhereNull('product_vehicle_fitments.model_id');
+                });
+            }
+
+            if ($yearId) {
+                $query->where(function($q) use ($yearId) {
+                    $q->where('product_vehicle_fitments.year_id', $yearId)
+                      ->orWhereNull('product_vehicle_fitments.year_id');
+                });
+            }
+
+            if ($variantId) {
+                $query->where(function($q) use ($variantId) {
+                    $q->where('product_vehicle_fitments.variant_id', $variantId)
+                      ->orWhereNull('product_vehicle_fitments.variant_id');
+                });
+            }
+
+            $products = $query->with(['categories', 'brand'])
+                ->select('ec_products.*')
+                ->distinct()
+                ->where('ec_products.status', 'published')
+                ->where('ec_products.is_variation', 0)
+                ->limit(20)
+                ->get();
+
+            return $this->httpResponse->setData([
+                'products' => $products,
+                'total' => $products->count(),
+                'search_params' => [
+                    'make_id' => $makeId,
+                    'model_id' => $modelId,
+                    'year_id' => $yearId,
+                    'variant_id' => $variantId,
+                ]
+            ]);
+        } catch (\Exception $e) {
+            return $this->httpResponse->setError()->setMessage('Failed to search products: ' . $e->getMessage());
+        }
+    }
 }

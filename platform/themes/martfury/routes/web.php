@@ -40,6 +40,9 @@ Theme::registerRoutes(function (): void {
 
             Route::get('variants', 'getVariants')
                 ->name('variants');
+
+            Route::get('products', 'searchProducts')
+                ->name('products');
         });
     });
 });

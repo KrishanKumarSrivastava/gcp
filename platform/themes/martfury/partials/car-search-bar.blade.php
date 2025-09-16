@@ -2,7 +2,12 @@
     <div class="container">
         <div class="car-search-wrapper">
             <h3 class="search-title">{{ __('Find Your Perfect Car Parts') }}</h3>
-            <form class="car-search-form" action="{{ route('public.products') }}" method="get">
+            <form class="car-search-form" action="{{ route('public.products') }}" method="get" id="car-search-form">
+                <input type="hidden" name="vehicle_search" value="1">
+                <input type="hidden" name="make_id" value="">
+                <input type="hidden" name="model_id" value="">
+                <input type="hidden" name="year_id" value="">
+                <input type="hidden" name="variant_id" value="">
                 <div class="search-fields-row">
                     <div class="search-field">
                         <label for="car_make">{{ __('Make') }}</label>
@@ -332,6 +337,39 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error fetching variants:', error);
             hideLoading(variantSelect, originalHTML);
         });
+    });
+    
+    // Update hidden fields when selections change
+    function updateHiddenFields() {
+        const form = document.getElementById('car-search-form');
+        const makeSelect = document.getElementById('car_make');
+        const modelSelect = document.getElementById('car_model');
+        const yearSelect = document.getElementById('car_year');
+        const variantSelect = document.getElementById('car_variant');
+        
+        form.querySelector('input[name="make_id"]').value = makeSelect.value;
+        form.querySelector('input[name="model_id"]').value = modelSelect.value;
+        form.querySelector('input[name="year_id"]').value = yearSelect.value;
+        form.querySelector('input[name="variant_id"]').value = variantSelect.value;
+    }
+    
+    // Add change listeners to update hidden fields
+    document.getElementById('car_make').addEventListener('change', updateHiddenFields);
+    document.getElementById('car_model').addEventListener('change', updateHiddenFields);
+    document.getElementById('car_year').addEventListener('change', updateHiddenFields);
+    document.getElementById('car_variant').addEventListener('change', updateHiddenFields);
+    
+    // Handle form submission
+    document.getElementById('car-search-form').addEventListener('submit', function(e) {
+        const makeId = document.getElementById('car_make').value;
+        
+        if (!makeId) {
+            e.preventDefault();
+            alert('Please select a car make to search for parts.');
+            return false;
+        }
+        
+        updateHiddenFields();
     });
 });
 </script>
