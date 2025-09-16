@@ -168,7 +168,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         'Content-Type': 'application/json'
                     }
                 })
-                    .then(response => response.json())
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
                     .then(data => {
                         if (data.data) {
                             data.data.forEach(model => {
@@ -179,7 +184,10 @@ document.addEventListener('DOMContentLoaded', function() {
                             });
                         }
                     })
-                    .catch(error => console.error('Error loading models:', error));
+                    .catch(error => {
+                        console.error('Error loading models:', error);
+                        modelSelect.innerHTML = '<option value="">Error loading models</option>';
+                    });
             }
         });
         
@@ -198,7 +206,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         'Content-Type': 'application/json'
                     }
                 })
-                    .then(response => response.json())
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
                     .then(data => {
                         if (data.data) {
                             data.data.forEach(year => {
@@ -209,7 +222,10 @@ document.addEventListener('DOMContentLoaded', function() {
                             });
                         }
                     })
-                    .catch(error => console.error('Error loading years:', error));
+                    .catch(error => {
+                        console.error('Error loading years:', error);
+                        yearSelect.innerHTML = '<option value="">Error loading years</option>';
+                    });
             }
         });
         
@@ -227,7 +243,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         'Content-Type': 'application/json'
                     }
                 })
-                    .then(response => response.json())
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
                     .then(data => {
                         if (data.data) {
                             data.data.forEach(variant => {
@@ -238,7 +259,10 @@ document.addEventListener('DOMContentLoaded', function() {
                             });
                         }
                     })
-                    .catch(error => console.error('Error loading variants:', error));
+                    .catch(error => {
+                        console.error('Error loading variants:', error);
+                        variantSelect.innerHTML = '<option value="">Error loading variants</option>';
+                    });
             }
         });
     }
