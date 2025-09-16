@@ -160,7 +160,14 @@ document.addEventListener('DOMContentLoaded', function() {
             variantSelect.innerHTML = '<option value="">Select Variant</option>';
             
             if (makeId) {
-                fetch(`/admin/ajax/vehicle/models?make_id=${makeId}`)
+                fetch(`/admin/ajax/vehicle/models?make_id=${makeId}`, {
+                    method: 'GET',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                })
                     .then(response => response.json())
                     .then(data => {
                         if (data.data) {
@@ -183,7 +190,14 @@ document.addEventListener('DOMContentLoaded', function() {
             variantSelect.innerHTML = '<option value="">Select Variant</option>';
             
             if (modelId) {
-                fetch(`/admin/ajax/vehicle/years?model_id=${modelId}`)
+                fetch(`/admin/ajax/vehicle/years?model_id=${modelId}`, {
+                    method: 'GET',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                })
                     .then(response => response.json())
                     .then(data => {
                         if (data.data) {
@@ -205,7 +219,14 @@ document.addEventListener('DOMContentLoaded', function() {
             variantSelect.innerHTML = '<option value="">Select Variant</option>';
             
             if (yearId) {
-                fetch(`/admin/ajax/vehicle/variants?year_id=${yearId}`)
+                fetch(`/admin/ajax/vehicle/variants?year_id=${yearId}`, {
+                    method: 'GET',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                })
                     .then(response => response.json())
                     .then(data => {
                         if (data.data) {
