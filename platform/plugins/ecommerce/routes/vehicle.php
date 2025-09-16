@@ -8,11 +8,6 @@ use Botble\Ecommerce\Http\Controllers\Vehicle\YearController;
 use Botble\Ecommerce\Http\Controllers\Vehicle\VariantController;
 use Botble\Ecommerce\Http\Controllers\Vehicle\AdminVehicleController;
 
-// Test route 
-Route::get('admin/vehicle/test', function () {
-    return 'Vehicle routes are working!';
-});
-
 AdminHelper::registerRoutes(function (): void {
     // Admin Vehicle Routes
     Route::group([
