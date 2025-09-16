@@ -31,12 +31,17 @@ use Botble\Ecommerce\Facades\ProductCategoryHelper;
 use Botble\Ecommerce\Forms\Fronts\Auth\FieldOptions\TextFieldOption;
 use Botble\Ecommerce\Http\Requests\ProductRequest;
 use Botble\Ecommerce\Models\Brand;
+use Botble\Ecommerce\Models\CarModel;
+use Botble\Ecommerce\Models\CarYear;
+use Botble\Ecommerce\Models\CarVariant;
 use Botble\Ecommerce\Models\GlobalOption;
+use Botble\Ecommerce\Models\Make;
 use Botble\Ecommerce\Models\Product;
 use Botble\Ecommerce\Models\ProductAttributeSet;
 use Botble\Ecommerce\Models\ProductCollection;
 use Botble\Ecommerce\Models\ProductLabel;
 use Botble\Ecommerce\Models\ProductVariation;
+use Botble\Ecommerce\Models\ProductVehicleFitment;
 use Botble\Ecommerce\Models\SpecificationTable;
 use Botble\Ecommerce\Models\Tax;
 use Botble\Ecommerce\Tables\ProductVariationTable;
@@ -248,6 +253,17 @@ class ProductForm extends FormAbstract
                 ],
             ])
             ->setBreakFieldPoint('status');
+
+        // Add Vehicle Fitments MetaBox
+        $this->addMetaBox(
+            MetaBox::make('vehicle-fitments')
+                ->title('Vehicle Fitments')
+                ->content(view('plugins/ecommerce::products.partials.vehicle-fitments', [
+                    'model' => $this->getModel(),
+                    'makes' => Make::pluck('name', 'id'),
+                    'existingFitments' => $this->getModel() ? $this->getModel()->vehicleFitments : collect(),
+                ]))
+        );
 
         if (EcommerceHelper::isProductSpecificationEnabled()) {
             $this->addMetaBox(

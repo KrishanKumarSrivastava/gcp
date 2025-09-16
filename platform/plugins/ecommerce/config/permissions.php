@@ -664,4 +664,101 @@ return [
         'flag' => 'ecommerce.specification-tables.destroy',
         'parent_flag' => 'ecommerce.specification-tables.index',
     ],
+
+    /**
+     * Vehicle Management
+     */
+    [
+        'name' => 'Vehicle Management',
+        'flag' => 'vehicle.index',
+        'parent_flag' => 'plugins.ecommerce',
+    ],
+
+    // Makes
+    [
+        'name' => 'Makes',
+        'flag' => 'vehicle.makes.index',
+        'parent_flag' => 'vehicle.index',
+    ],
+    [
+        'name' => 'Create',
+        'flag' => 'vehicle.makes.create',
+        'parent_flag' => 'vehicle.makes.index',
+    ],
+    [
+        'name' => 'Edit',
+        'flag' => 'vehicle.makes.edit',
+        'parent_flag' => 'vehicle.makes.index',
+    ],
+    [
+        'name' => 'Delete',
+        'flag' => 'vehicle.makes.destroy',
+        'parent_flag' => 'vehicle.makes.index',
+    ],
+
+    // Models
+    [
+        'name' => 'Models',
+        'flag' => 'vehicle.models.index',
+        'parent_flag' => 'vehicle.index',
+    ],
+    [
+        'name' => 'Create',
+        'flag' => 'vehicle.models.create',
+        'parent_flag' => 'vehicle.models.index',
+    ],
+    [
+        'name' => 'Edit',
+        'flag' => 'vehicle.models.edit',
+        'parent_flag' => 'vehicle.models.index',
+    ],
+    [
+        'name' => 'Delete',
+        'flag' => 'vehicle.models.destroy',
+        'parent_flag' => 'vehicle.models.index',
+    ],
+
+    // Years
+    [
+        'name' => 'Years',
+        'flag' => 'vehicle.years.index',
+        'parent_flag' => 'vehicle.index',
+    ],
+    [
+        'name' => 'Create',
+        'flag' => 'vehicle.years.create',
+        'parent_flag' => 'vehicle.years.index',
+    ],
+    [
+        'name' => 'Edit',
+        'flag' => 'vehicle.years.edit',
+        'parent_flag' => 'vehicle.years.index',
+    ],
+    [
+        'name' => 'Delete',
+        'flag' => 'vehicle.years.destroy',
+        'parent_flag' => 'vehicle.years.index',
+    ],
+
+    // Variants
+    [
+        'name' => 'Variants',
+        'flag' => 'vehicle.variants.index',
+        'parent_flag' => 'vehicle.index',
+    ],
+    [
+        'name' => 'Create',
+        'flag' => 'vehicle.variants.create',
+        'parent_flag' => 'vehicle.variants.index',
+    ],
+    [
+        'name' => 'Edit',
+        'flag' => 'vehicle.variants.edit',
+        'parent_flag' => 'vehicle.variants.index',
+    ],
+    [
+        'name' => 'Delete',
+        'flag' => 'vehicle.variants.destroy',
+        'parent_flag' => 'vehicle.variants.index',
+    ],
 ];
