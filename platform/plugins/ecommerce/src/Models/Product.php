@@ -338,6 +338,11 @@ class Product extends BaseModel
             ->withPivot('value', 'hidden', 'order');
     }
 
+    public function vehicleFitments(): HasMany
+    {
+        return $this->hasMany(ProductVehicleFitment::class);
+    }
+
     protected function crossSaleProducts(): Attribute
     {
         return Attribute::get(function () {

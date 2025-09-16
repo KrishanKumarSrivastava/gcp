@@ -18,4 +18,9 @@ class CarModel extends BaseModel
     {
         return $this->hasMany(CarYear::class);
     }
+
+    public function getNameWithMakeAttribute()
+    {
+        return $this->make->name . ' - ' . $this->name;
+    }
 }

@@ -14,6 +14,7 @@ use Botble\Ecommerce\Models\GroupedProduct;
 use Botble\Ecommerce\Models\Product;
 use Botble\Ecommerce\Models\ProductVariation;
 use Botble\Ecommerce\Models\ProductVariationItem;
+use Botble\Ecommerce\Models\ProductVehicleFitment;
 use Botble\Ecommerce\Services\Products\DuplicateProductService;
 use Botble\Ecommerce\Services\Products\StoreAttributesOfProductService;
 use Botble\Ecommerce\Services\Products\StoreProductService;
@@ -143,6 +144,9 @@ class ProductController extends BaseController
             );
         }
 
+        // Handle vehicle fitments
+        $this->handleVehicleFitments($product, $request);
+
         return $this
             ->httpResponse()
             ->setPreviousUrl(route('products.index'))
@@ -216,6 +220,9 @@ class ProductController extends BaseController
             );
         }
 
+        // Handle vehicle fitments
+        $this->handleVehicleFitments($product, $request);
+
         $relatedProductIds = $product->variations()->pluck('product_id')->all();
 
         Product::query()->whereIn('id', $relatedProductIds)->update(['status' => $product->status]);
@@ -261,5 +268,28 @@ class ProductController extends BaseController
         return $this
             ->httpResponse()
             ->withUpdatedSuccessMessage();
+    }
+
+    protected function handleVehicleFitments(Product $product, ProductRequest $request): void
+    {
+        // Delete existing fitments
+        $product->vehicleFitments()->delete();
+
+        // Add new fitments
+        $vehicleFitments = $request->input('vehicle_fitments', []);
+        
+        if (!empty($vehicleFitments)) {
+            foreach ($vehicleFitments as $fitment) {
+                if (!empty($fitment['make_id'])) {
+                    ProductVehicleFitment::create([
+                        'product_id' => $product->id,
+                        'make_id' => $fitment['make_id'],
+                        'model_id' => $fitment['model_id'] ?: null,
+                        'year_id' => $fitment['year_id'] ?: null,
+                        'variant_id' => $fitment['variant_id'] ?: null,
+                    ]);
+                }
+            }
+        }
     }
 }

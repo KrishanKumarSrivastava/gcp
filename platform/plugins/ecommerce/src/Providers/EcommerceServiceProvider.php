@@ -945,6 +945,52 @@ class EcommerceServiceProvider extends ServiceProvider
                             'url' => fn () => route('ecommerce.specification-tables.index'),
                             'permissions' => ['ecommerce.specification-tables.index'],
                         ]);
+                })
+                ->registerItem([
+                    'id' => 'cms-plugins-ecommerce-vehicle',
+                    'priority' => 160,
+                    'parent_id' => 'cms-plugins-ecommerce',
+                    'name' => 'Vehicle Management',
+                    'icon' => 'ti ti-car',
+                    'url' => fn () => route('vehicle.makes.index'),
+                    'permissions' => ['vehicle.makes.index'],
+                ])
+                ->registerItem([
+                    'id' => 'cms-plugins-ecommerce-vehicle-makes',
+                    'priority' => 0,
+                    'parent_id' => 'cms-plugins-ecommerce-vehicle',
+                    'name' => 'Makes',
+                    'icon' => 'ti ti-building-factory',
+                    'url' => fn () => route('vehicle.makes.index'),
+                    'permissions' => ['vehicle.makes.index'],
+                ])
+                ->registerItem([
+                    'id' => 'cms-plugins-ecommerce-vehicle-models',
+                    'priority' => 10,
+                    'parent_id' => 'cms-plugins-ecommerce-vehicle',
+                    'name' => 'Models',
+                    'icon' => 'ti ti-car-suv',
+                    'url' => fn () => route('vehicle.models.index'),
+                    'permissions' => ['vehicle.models.index'],
+                ])
+                ->registerItem([
+                    'id' => 'cms-plugins-ecommerce-vehicle-years',
+                    'priority' => 20,
+                    'parent_id' => 'cms-plugins-ecommerce-vehicle',
+                    'name' => 'Years',
+                    'icon' => 'ti ti-calendar',
+                    'url' => fn () => route('vehicle.years.index'),
+                    'permissions' => ['vehicle.years.index'],
+                ])
+                ->registerItem([
+                    'id' => 'cms-plugins-ecommerce-vehicle-variants',
+                    'priority' => 30,
+                    'parent_id' => 'cms-plugins-ecommerce-vehicle',
+                    'name' => 'Variants',
+                    'icon' => 'ti ti-adjustments',
+                    'url' => fn () => route('vehicle.variants.index'),
+                    'permissions' => ['vehicle.variants.index'],
+                ]);
                 });
         });
 
