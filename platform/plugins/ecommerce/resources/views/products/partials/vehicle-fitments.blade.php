@@ -160,8 +160,20 @@ document.addEventListener('DOMContentLoaded', function() {
             variantSelect.innerHTML = '<option value="">Select Variant</option>';
             
             if (makeId) {
-                fetch(`/admin/ajax/vehicle/models?make_id=${makeId}`)
-                    .then(response => response.json())
+                fetch(`/admin/ajax/vehicle/models?make_id=${makeId}`, {
+                    method: 'GET',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
                     .then(data => {
                         if (data.data) {
                             data.data.forEach(model => {
@@ -172,7 +184,10 @@ document.addEventListener('DOMContentLoaded', function() {
                             });
                         }
                     })
-                    .catch(error => console.error('Error loading models:', error));
+                    .catch(error => {
+                        console.error('Error loading models:', error);
+                        modelSelect.innerHTML = '<option value="">Error loading models</option>';
+                    });
             }
         });
         
@@ -183,8 +198,20 @@ document.addEventListener('DOMContentLoaded', function() {
             variantSelect.innerHTML = '<option value="">Select Variant</option>';
             
             if (modelId) {
-                fetch(`/admin/ajax/vehicle/years?model_id=${modelId}`)
-                    .then(response => response.json())
+                fetch(`/admin/ajax/vehicle/years?model_id=${modelId}`, {
+                    method: 'GET',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
                     .then(data => {
                         if (data.data) {
                             data.data.forEach(year => {
@@ -195,7 +222,10 @@ document.addEventListener('DOMContentLoaded', function() {
                             });
                         }
                     })
-                    .catch(error => console.error('Error loading years:', error));
+                    .catch(error => {
+                        console.error('Error loading years:', error);
+                        yearSelect.innerHTML = '<option value="">Error loading years</option>';
+                    });
             }
         });
         
@@ -205,8 +235,20 @@ document.addEventListener('DOMContentLoaded', function() {
             variantSelect.innerHTML = '<option value="">Select Variant</option>';
             
             if (yearId) {
-                fetch(`/admin/ajax/vehicle/variants?year_id=${yearId}`)
-                    .then(response => response.json())
+                fetch(`/admin/ajax/vehicle/variants?year_id=${yearId}`, {
+                    method: 'GET',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
                     .then(data => {
                         if (data.data) {
                             data.data.forEach(variant => {
@@ -217,7 +259,10 @@ document.addEventListener('DOMContentLoaded', function() {
                             });
                         }
                     })
-                    .catch(error => console.error('Error loading variants:', error));
+                    .catch(error => {
+                        console.error('Error loading variants:', error);
+                        variantSelect.innerHTML = '<option value="">Error loading variants</option>';
+                    });
             }
         });
     }
